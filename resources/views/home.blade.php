@@ -1,5 +1,8 @@
 @extends('layouts/main_layout')
 
 @section('content')
-    <p class="display-1 text-center">Hello World!</p>    
+    {{-- Comentário de blade. --}}
+
+    <p><?= $name ?></p>
+    <p>{{ $name }}</p>
 @endsection
