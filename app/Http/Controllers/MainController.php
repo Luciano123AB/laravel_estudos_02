@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function showView(): View {
-        return view("home", ["value" => 100]);
+
+        $data = [
+            "value" => 100,
+            "cities" => ["New York", "Los Angeles", "Chicago"],
+            "names" => ["A", "B", "C"],
+            "indice" => 1
+        ];
+
+        return view("home", $data);
     }
 }
