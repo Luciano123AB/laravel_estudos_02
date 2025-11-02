@@ -1,44 +1,34 @@
 @extends('layouts/main_layout')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <form action="{{ route("submit") }}" method="POST">
-                    @csrf
+    @production
+        <p>Estou em ambiente de produção!</p>
+    @else
+        <p>Não estou em ambiente de produção!</p>
+    @endproduction
 
-                    <div class="mb-3">
-                        <label class="form-label">Username:</label>
-                        <input type="text" name="username" class="form-control">
-                    </div>
+    @env(["local", "development"])
+        <p>Estou no ambiente local! {{ env("APP_ENV") }}</p>
+    @endenv
 
-                    <div class="mb-3">
-                        <label class="form-label">Password:</label>
-                        <input type="password" name="password" class="form-control">
-                    </div>
+    {{-- Formulário --}}
+    <form action="{{ route("submit") }}" method="post">
+        @csrf
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary">Login</button>
-                    </div>
-                </form>
-            </div>
+        <div>
+            <input type="text" name="name">        
+            @error("name")
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
-    </div>
-
-    {{-- Executar PHP dentro de uma view. --}}
-    @php
-
-        $valor01 = 100;
-        $valor02 = "<span class='text-warning'>" . $valor01 . "</span>";
-        $nome = "Luciano Eduardo";
-
-    @endphp
-
-    <h3>{{ $valor01 }}</h3>
-
-    <h3>{!! $valor02 !!}</h3>
-
-    <h3>{{ $valor01 * 1000 }}</h3>
-
-    <h3>$nome tem <span class="text-info">{{ strlen($nome) }}</span> caracteres.</h3>
+        
+        <div>
+            <input type="text" name="country">        
+            @error("country")
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        
+        <button type="submit">Enviar</button>
+    </form>
 @endsection
