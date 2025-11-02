@@ -1,33 +1,44 @@
 @extends('layouts/main_layout')
 
 @section('content')
-    {{-- Usando o continue e break. --}}
-    @for ($index = 0; $index < 10; $index++)
-        {{-- continue --}}
-        @if($index == 5)
-            @continue
-        @endif
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <form action="{{ route("submit") }}" method="POST">
+                    @csrf
 
-        <p>Index: {{ $index }}</p>
+                    <div class="mb-3">
+                        <label class="form-label">Username:</label>
+                        <input type="text" name="username" class="form-control">
+                    </div>
 
-        {{-- break --}}
-        @if($index == 7)
-            @break
-        @endif
-    @endfor
+                    <div class="mb-3">
+                        <label class="form-label">Password:</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
 
-    {{-- Loop variable --}}
-    @foreach($cities as $city)
-        <h1>{{ $city }}</h1>
+                    <div class="mb-3">
+                        <button class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        <h3>{{ $loop->index }}</h3>
+    {{-- Executar PHP dentro de uma view. --}}
+    @php
 
-        @if($loop->first)
-            <h3>Primeira cidade</h3>
-        @endif
+        $valor01 = 100;
+        $valor02 = "<span class='text-warning'>" . $valor01 . "</span>";
+        $nome = "Luciano Eduardo";
 
-        @if($loop->last)
-            <h3>Última cidade</h3>
-        @endif
-    @endforeach
+    @endphp
+
+    <h3>{{ $valor01 }}</h3>
+
+    <h3>{!! $valor02 !!}</h3>
+
+    <h3>{{ $valor01 * 1000 }}</h3>
+
+    <h3>$nome tem <span class="text-info">{{ strlen($nome) }}</span> caracteres.</h3>
 @endsection
